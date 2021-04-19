@@ -60,3 +60,14 @@ if(population > 33) {
 // 4.false
 // 5.1143
 
+// Assignment 8 Equality Operators: == vs. ===
+const numNeighbors = prompt("How many neighbor countries does your country have?");
+
+if(numNeighbors === 1) {
+    console.log("Only 1 border!");
+} else if(numNeighbors > 1) {
+    console.log("More than 1 border");
+} else {
+    console.log("No borders");
+}
+
