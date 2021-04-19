@@ -30,12 +30,19 @@ let finlandPopulation = 6000000;
 console.log(population > finlandPopulation);
 let averagePopulation = 33000000;
 console.log(population < averagePopulation);
-const countryDescription =
-  country +
-  " is in " +
-  continent +
-  " and it's " +
-  population +
-  " people speak " +
-  language;
+// const countryDescription =
+//   country +
+//   " is in " +
+//   continent +
+//   " and it's " +
+//   population +
+//   " people speak " +
+//   language;
+// console.log(countryDescription);
+
+
+
+// Assignment 5 Template Literals
+const countryDescription = `${country} is in ${continent} and it's ${population} people speak ${language}`;
 console.log(countryDescription);
+
