@@ -1,7 +1,7 @@
 // Assignment 1 Values and Variables //
 // let country = "United States of America";
 // let continent = "North America";
-let population = 300000000;
+let population = 300;
 // console.log(country);
 // console.log(continent);
 // console.log(population);
@@ -26,9 +26,9 @@ let language = "English";
 console.log(population / 2);
 population++;
 console.log(population);
-let finlandPopulation = 6000000;
+let finlandPopulation = 6;
 console.log(population > finlandPopulation);
-let averagePopulation = 33000000;
+let averagePopulation = 33;
 console.log(population < averagePopulation);
 // const countryDescription =
 //   country +
@@ -43,6 +43,20 @@ console.log(population < averagePopulation);
 
 
 // Assignment 5 Template Literals
-const countryDescription = `${country} is in ${continent} and it's ${population} people speak ${language}`;
+const countryDescription = `${country} is in ${continent} and it's ${population} million people speak ${language}`;
 console.log(countryDescription);
+
+//Assignment 6 Taking Decisions: if / else Statements
+if(population > 33) {
+    console.log(`${country}'s population is above average`);
+} else {
+    console.log(`${country}'s population is ${33000000 - population} million below average`);
+}
+
+//Assignment 7 Type Conversion and Coercion
+// 1.4
+// 2.617
+// 3.23
+// 4.false
+// 5.1143
 
