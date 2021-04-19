@@ -105,20 +105,39 @@
 
 //Strings and Template Literals
 
-const firstName = 'Madeleine';
-const job = 'student';
-const birthYear = 1993;
-const currentYear = 2021;
+// const firstName = 'Madeleine';
+// const job = 'student';
+// const birthYear = 1993;
+// const currentYear = 2021;
 
-const madeleine = "I'm " + firstName + ', a ' + (currentYear - birthYear) + ' year old ' + job + '!';
-console.log(madeleine);
+// const madeleine = "I'm " + firstName + ', a ' + (currentYear - birthYear) + ' year old ' + job + '!';
+// console.log(madeleine);
 
-const madeleineNew = `I'm ${firstName}, a ${currentYear - birthYear} year old ${job}!`;
-console.log(madeleineNew);
+// const madeleineNew = `I'm ${firstName}, a ${currentYear - birthYear} year old ${job}!`;
+// console.log(madeleineNew);
 
-console.log(`just a regular string`);
+// console.log(`just a regular string`);
 
-console.log(`string
-with
-multiple
-lines`);
+// console.log(`string
+// with
+// multiple
+// lines`);
+
+// If/Else statements and making decisions 
+const age = 15;
+
+if(age >= 18) {
+    console.log('Sarah can start driving license 🥰');
+} else {
+    const yearsLeft = 18 - age;
+    console.log(`Sarah is too young, wait another ${yearsLeft} years`);
+}
+
+const birthYear = 2001;
+let century;
+if(birthYear <= 2000) {
+    century = 20;
+} else {
+    century = 21;
+}
+console.log(century)
