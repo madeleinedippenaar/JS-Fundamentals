@@ -90,15 +90,35 @@
 
 // console.log(now - 1993 > now - 1988);
 
-//Operator Presedence
-const now = 2037;
-const ageMadeleine = now - 1993;
-const ageRodney = now - 1988;
-console.log(now - 1993 > now - 1988);
+// //Operator Presedence
+// const now = 2037;
+// const ageMadeleine = now - 1993;
+// const ageRodney = now - 1988;
+// console.log(now - 1993 > now - 1988);
 
-let x, y;
-x = y = 25 - 10 - 5; // x = y = 10, x = 10
-console.log(x, y);
+// let x, y;
+// x = y = 25 - 10 - 5; // x = y = 10, x = 10
+// console.log(x, y);
 
-const averageAge = (ageMadeleine + ageRodney) / 2;
-console.log(ageMadeleine, ageRodney, averageAge);
+// const averageAge = (ageMadeleine + ageRodney) / 2;
+// console.log(ageMadeleine, ageRodney, averageAge);
+
+//Strings and Template Literals
+
+const firstName = 'Madeleine';
+const job = 'student';
+const birthYear = 1993;
+const currentYear = 2021;
+
+const madeleine = "I'm " + firstName + ', a ' + (currentYear - birthYear) + ' year old ' + job + '!';
+console.log(madeleine);
+
+const madeleineNew = `I'm ${firstName}, a ${currentYear - birthYear} year old ${job}!`;
+console.log(madeleineNew);
+
+console.log(`just a regular string`);
+
+console.log(`string
+with
+multiple
+lines`);
