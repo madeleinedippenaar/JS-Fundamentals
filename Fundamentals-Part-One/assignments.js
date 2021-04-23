@@ -1,7 +1,7 @@
 // Assignment 1 Values and Variables //
 // let country = "United States of America";
 // let continent = "North America";
-let population = 300;
+// let population = 300;
 // console.log(country);
 // console.log(continent);
 // console.log(population);
@@ -17,19 +17,19 @@ let population = 300;
 // console.log(typeof language);
 
 // Assignment 3 let, var and const
-const country = "United States of America";
-const continent = "North America";
-const isIsland = false;
-let language = "English";
+// const country = "United States of America";
+// const continent = "North America";
+// const isIsland = false;
+// let language = "English";
 
 // Assignment 4 Basic Operators
-console.log(population / 2);
-population++;
-console.log(population);
-let finlandPopulation = 6;
-console.log(population > finlandPopulation);
-let averagePopulation = 33;
-console.log(population < averagePopulation);
+// console.log(population / 2);
+// population++;
+// console.log(population);
+// let finlandPopulation = 6;
+// console.log(population > finlandPopulation);
+// let averagePopulation = 33;
+// console.log(population < averagePopulation);
 // const countryDescription =
 //   country +
 //   " is in " +
@@ -43,15 +43,15 @@ console.log(population < averagePopulation);
 
 
 // Assignment 5 Template Literals
-const countryDescription = `${country} is in ${continent} and it's ${population} million people speak ${language}`;
-console.log(countryDescription);
+// const countryDescription = `${country} is in ${continent} and it's ${population} million people speak ${language}`;
+// console.log(countryDescription);
 
 //Assignment 6 Taking Decisions: if / else Statements
-if(population > 33) {
-    console.log(`${country}'s population is above average`);
-} else {
-    console.log(`${country}'s population is ${33000000 - population} million below average`);
-}
+// if(population > 33) {
+//     console.log(`${country}'s population is above average`);
+// } else {
+//     console.log(`${country}'s population is ${33000000 - population} million below average`);
+// }
 
 //Assignment 7 Type Conversion and Coercion
 // 1.4
@@ -72,8 +72,31 @@ if(population > 33) {
 // }
 
 // Assignment 9 Logical Operators
-if(language === "English" && population < 50 && !isIsland) {
-    console.log(`You should live in ${country}`)
-} else {
-    console.log(`${country} does not meet your criteria!`);
+// if(language === "English" && population < 50 && !isIsland) {
+//     console.log(`You should live in ${country}`)
+// } else {
+//     console.log(`${country} does not meet your criteria!`);
+
+// Assignment 10 The Switch Statement 
+const language = 'chinese';
+
+switch(language){
+    case 'chinese':
+    case 'mandarin':
+        console.log('MOST number of native speakers!');
+        break;
+    case 'spanish':
+        console.log('2nd place in number of native speakers');
+        break;
+    case 'english':
+        console.log('3rd place');
+        break;
+    case 'hindi':
+        console.log('4th place');
+        break;
+    case 'arabic':
+        console.log('5th most spoken language');
+        break;
+    default:
+        console.log("Great language too! :D")
 }
