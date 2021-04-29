@@ -70,25 +70,48 @@ const describePopulation = (country, population) => {
 // Coding Assignment 5 introduction to Arrays
 
 const population = [42, 125, 23, 2] // Uganda, Japan, Taiwan, Qatar
-console.log(population.length === 4);
+// console.log(population.length === 4);
 
 const percentages = [percentageOfWorld3(population[0]), percentageOfWorld3(population[1]),percentageOfWorld3(population[2]), percentageOfWorld3(population[population.length -1])];
 
-console.log(percentages);
+// console.log(percentages);
 
 ///////////////////////////////////////
 // Coding Assignment 6 Basic Array Operations (models)
 
 const neighbors = ['Australia', 'Poland', 'France'];
 neighbors.push('Utopia');
-console.log(neighbors);
+// console.log(neighbors);
 neighbors.pop();
-console.log(neighbors);
+// console.log(neighbors);
 
 if(!neighbors.includes('Germany')) {
-    console.log('Probably not a Central European Country :D');
+    // console.log('Probably not a Central European Country :D');
 }
 
 neighbors[neighbors.indexOf('Sweden')] = 'Republic of Sweden';
 
-console.log(neighbors)
+// console.log(neighbors)
+
+///////////////////////////////////////
+// Coding Assignment 7 Introduction to Objects
+
+const myCountry = {
+    country: 'United States of America',
+    capital: 'Washington D.C',
+    language: 'English',
+    population: 300,
+    neighbors: ['Canada', 'Mexico']
+};
+
+// console.log(myCountry);
+
+///////////////////////////////////////
+// Coding Assignment 8 Dot vs. Bracket Notation
+
+console.log(`${myCountry.country} has ${myCountry.population} million ${myCountry.language} speaking people, ${myCountry.neighbors.length} neighboring countries, and a capital called ${myCountry.capital}`);
+
+myCountry.population += 2;
+console.log(myCountry.population);
+myCountry['population'] -= 2;
+console.log(myCountry.population);
