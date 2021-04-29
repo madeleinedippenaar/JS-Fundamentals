@@ -94,24 +94,34 @@ neighbors[neighbors.indexOf('Sweden')] = 'Republic of Sweden';
 // console.log(neighbors)
 
 ///////////////////////////////////////
-// Coding Assignment 7 Introduction to Objects
+// Coding Assignment 7 Introduction to Objects & Coding Assignment 9 Object Methods
 
 const myCountry = {
     country: 'United States of America',
     capital: 'Washington D.C',
     language: 'English',
     population: 300,
-    neighbors: ['Canada', 'Mexico']
+    neighbors: ['Canada', 'Mexico'],
+    describe: function() {
+        return `${this.country} has ${this.population} million ${this.language} speaking people, ${this.neighbors.length} neighboring countries, and a capital called ${this.capital}`
+    },
+    checkIsland: function() {
+        this.isIsland = this.neighbors.length === 0 ? true : false;
+    }
 };
 
+console.log(myCountry.describe());
 // console.log(myCountry);
 
 ///////////////////////////////////////
 // Coding Assignment 8 Dot vs. Bracket Notation
 
-console.log(`${myCountry.country} has ${myCountry.population} million ${myCountry.language} speaking people, ${myCountry.neighbors.length} neighboring countries, and a capital called ${myCountry.capital}`);
+// console.log(`${myCountry.country} has ${myCountry.population} million ${myCountry.language} speaking people, ${myCountry.neighbors.length} neighboring countries, and a capital called ${myCountry.capital}`);
 
 myCountry.population += 2;
-console.log(myCountry.population);
+// console.log(myCountry.population);
 myCountry['population'] -= 2;
-console.log(myCountry.population);
+// console.log(myCountry.population);
+
+///////////////////////////////////////
+//
