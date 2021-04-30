@@ -261,13 +261,132 @@ const madeleine = {
     }
 };
 
-console.log(madeleine.calcAge());
-console.log(madeleine.age);
-console.log(madeleine.age);
-console.log(madeleine.age);
+// console.log(madeleine.calcAge());
+// console.log(madeleine.age);
+// console.log(madeleine.age);
+// console.log(madeleine.age);
 // console.log(madeleine['calcAge'](1995));
 
 //Challenge
-console.log(madeleine.getSummary());
+// console.log(madeleine.getSummary());
 
+  ///////////////////////////////////////
+//The for Loop
+
+// console.log('Lifting weights repition 1 🏋️‍♀️');
+// console.log('Lifting weights repition 2 🏋️‍♀️');
+// console.log('Lifting weights repition 3 🏋️‍♀️');
+// console.log('Lifting weights repition 4 🏋️‍♀️');
+// console.log('Lifting weights repition 5 🏋️‍♀️');
+// console.log('Lifting weights repition 6 🏋️‍♀️');
+// console.log('Lifting weights repition 7 🏋️‍♀️');
+// console.log('Lifting weights repition 8 🏋️‍♀️');
+// console.log('Lifting weights repition 9 🏋️‍♀️');
+// console.log('Lifting weights repition 10 🏋️‍♀️');
+
+//keeps running while condition is true. loop will stop when the condition is false
+// for(let rep = 1; rep <= 10; rep++) {
+//     console.log(`Lifting weights repition ${rep} 🏋️‍♀️`);
+// }
+///////////////////////////////////////
+//Looping Arrays, Breaking and Continuing
+
+// const madeleineArray = [
+//     'Madeleine',
+//     'Dippenaar',
+//     2037 - 1993,
+//     'Student',
+//     ['Steve', 'Jacob', 'James'],
+//     true
+// ];
+
+// const types = [];
+
+// How it would traditionally look without a for loop 
+// console.log(madeleineArray[0]);
+// console.log(madeleineArray[1]);
+// console.log(madeleineArray[2]);
+// console.log(madeleineArray[3]);
+// console.log(madeleineArray[4]);
+// madeleineArray[5] does NOT exist 
+
+// for(let i = 0; i < madeleineArray.length ; i++) {
+
+//     //reading the array
+//     console.log(madeleineArray[i], typeof madeleineArray[i]);
+
+//     //filling the array
+//     // types[i] = typeof madeleineArray[i];
+//     types.push(typeof madeleineArray[i]);
+
+// }
+// console.log(types);
+
+// const yearsForAges = [1991, 1993, 2000, 2006];
+// const agesForYears = []
+
+// for(let i = 0; i < yearsForAges.length; i++) {
+//     agesForYears.push(2037 - yearsForAges[i]);
+// };
+
+// console.log(agesForYears);
+
+// continue and break
+// console.log('----ONLY STRINGS----');
+// for(let i = 0; i < madeleineArray.length ; i++) {
+//     if(typeof madeleineArray[i] !== 'string') continue;
+//     console.log(madeleineArray[i], typeof madeleineArray[i]);
+
+// }
+
+// console.log('----BREAK WITH NUMBER----');
+// for(let i = 0; i < madeleineArray.length ; i++) {
+//     if(typeof madeleineArray[i] === 'number') break;
+//     console.log(madeleineArray[i], typeof madeleineArray[i]);
+
+// }
+
+///////////////////////////////////////
+//Looping Backwards and Loops in Loops
+
+const madeleineArray = [
+    'Madeleine',
+    'Dippenaar',
+    2037 - 1993,
+    'Student',
+    ['Steve', 'Jacob', 'James'],
+    true
+];
+
+for(let i = madeleineArray.length -1; i >= 0; i--) {
+    console.log(i, madeleineArray[i]);
+}
+
+for(let exercise = 1; exercise < 4; exercise++) {
+    console.log(`---------------starting exercise ${exercise}`);
+    for(let rep = 1; rep < 6; rep++){
+        console.log(` Exercise ${exercise}: lifting weights repition ${rep} 🏋️‍♀️`);
+    }
+}
+
+///////////////////////////////////////
+//The while loop
+
+// for (let rep = 1; rep <= 10; rep++) {
+//         console.log(`FOR: Lifting weights repition ${rep} 🏋️‍♀️`);
+// }
+
+let rep = 1;
+while (rep <= 10) {
+    // console.log(`WHILE: Lifting weights repition ${rep} 🏋️‍♀️`);
+    rep++;
+}
+
+let dice = Math.trunc(Math.random() * 6) +1;
+
+while (dice !== 6) {
+    console.log(`You rolled a ${dice}`);
+    dice = Math.trunc(Math.random() * 6) +1;
+    if(dice === 6) console.log('Loop is about to end!');
+}
 
