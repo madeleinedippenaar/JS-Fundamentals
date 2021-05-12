@@ -288,4 +288,118 @@ const poll = {
 // poll.registerNewAnswer();
 document.querySelector('.poll').addEventListener('click', poll.registerNewAnswer.bind(poll));
 
-poll.displayResults.call({answers: [5,2,3]}, 'string');
+
+
+//// IIFE IMMEDIATELY INVOKED FUNCTION EXPRESSIONS//////
+console.log('-----IIFE IMMEDIATELY INVOKED FUNCTION EXPRESSIONS--------');
+
+///not the way to do it, you can always run this again if you called the function 
+const runOnce = function() {
+    console.log('this will never run again');
+}
+runOnce();
+
+//how to run an IIFE
+(function() {
+    console.log('this will never run again');
+});
+//the above will log the text to the console once. 
+(() => console.log('this will ALSO never run again'))();
+
+//why was this invented? functions create scopes. cant access variables inside of functions because of scoping. global scope does not have access to funcion scopes. all data defined inside a scope is private/encapsulated.
+
+//more a pattern not a feature. IIFE are not really used anymore, you can just create a block like below
+
+// {
+//     const isPrivate = 23;
+//     var notPrivate = 45;
+// }
+
+////CLOSURES AND MORE CLOSURES//////
+console.log('-------CLOSURES AND MORE CLOSURES-----');
+
+const secureBooking = function() {
+    let passengerCount = 0;
+
+    return function() {
+        passengerCount++;
+        console.log(`${passengerCount} passengers`);
+    }
+}
+
+const booker = secureBooking();
+booker();
+booker();
+booker();
+
+//see notes you wrote down.
+
+console.dir(booker);
+
+
+///example 1 for closures
+let f;
+const g = function() {
+    const a = 23;
+    f = function() {
+        console.log(a * 2);
+    }
+}
+const h = function() {
+    const b = 8;
+    f = function() {
+        console.log(b * 2);
+    }
+}
+
+g();
+f();
+console.dir(f);
+//re-assigning f function
+h();
+f();
+console.dir(f);
+
+//example 2 of closures///
+const boardPassengers = function(n, wait) {
+    const perGroup = n/3;
+
+    setTimeout(function(){
+        console.log(`We are now boarding all ${n} passengers`);
+        console.log(`There are 3 groups, each with ${perGroup} passengers`);
+    }, wait * 1000)
+
+
+    console.log(`Will start boarding in ${wait} seconds`);
+};
+
+// const perGroup = 1000;
+boardPassengers(180, 3);
+
+/* 
+This is more of a thinking challenge than a coding challenge 🤓
+
+Take the IIFE below and at the end of the function, attach an event listener that changes the color of the selected h1 element ('header') to blue, each time the BODY element is clicked. Do NOT select the h1 element again!
+
+And now explain to YOURSELF (or someone around you) WHY this worked! Take all the time you need. Think about WHEN exactly the callback function is executed, and what that means for the variables involved in this example.
+
+GOOD LUCK 😀
+*/
+//how i did it
+(function () {
+    const header = document.querySelector('h1');
+    header.style.color = 'red';
+    document.body.onclick = changeColor;
+    function changeColor() {
+        header.style.color = 'blue';
+    }
+})();
+
+//how jonas did it 
+(function () {
+    const header = document.querySelector('h1');
+    header.style.color = 'red';
+    document.querySelector('body').addEventListener('click', function() {
+        header.style.color = 'blue';
+    });
+})();
