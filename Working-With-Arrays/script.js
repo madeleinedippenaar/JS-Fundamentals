@@ -61,6 +61,22 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+//FUNCTIONALITY
+const displayMovements = function(movements) {
+  containerMovements.innerHTML = '';
+  movements.forEach(function(move, i) {
+    const type = move > 0 ? 'deposit' : 'withdrawal';
+
+    const html = `
+    <div class="movements__row">
+    <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+    <div class="movements__value">${move}</div>
+  </div>`;
+  containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+displayMovements(account1.movements);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -163,3 +179,40 @@ currenciesUnique.forEach(function(value, _value, map) {
     console.log(`${_value}: ${value}`);
 })
 //key is the same as the value on a set, because sets do not have keys, they are unique values
+
+//array coding challenge 1
+//§ Data 1: Julia's data [3, 5, 2, 12, 7], Kate's data [4, 1, 15, 8, 3] § Data 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
+
+//HOW I DID IT
+const juliaData = [3,5,2,12,7];
+const kateData = [4,1,15,8,3];
+
+console.log(juliaData.slice(1,3));
+const checkDogs = function(data1, data2) {
+  const noCats = data1.slice(1,3);
+  const newDogData = noCats.concat(data2);
+  newDogData.forEach(function(age, i) {
+    if(age >= 3 ) {
+      console.log(`Dog number ${i +1} is an adult, and is ${age} years old!`);
+    }else {
+      console.log(`Dog number ${i +1} is still a puppy! 🐶`);
+    }
+  })
+};
+checkDogs(juliaData, kateData);
+
+//HOW JONAS DID IT
+const checkDogs2 = function(dogsJulia, dogsKate) {
+  const dogsJuliaCorrected = dogsJulia.slice();
+  dogsJuliaCorrected.splice(0,1);
+  dogsJuliaCorrected.splice(-2);
+  const dogs = dogsJuliaCorrected.concat(dogsKate);
+  dogs.forEach(function(dog, i) {
+    if(dog >= 3) {
+      console.log(`Dog number ${i +1} is an adult, and is ${dog} years old!`);
+    } else {
+      console.log(`Dog number ${i +1} is still a puppy! 🐶`);
+    }
+  })
+}
+checkDogs2([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
