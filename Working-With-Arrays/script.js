@@ -77,6 +77,21 @@ const displayMovements = function(movements) {
 };
 displayMovements(account1.movements);
 
+//printing the total balance 
+const calcDisplayBalance = function(movements) {
+  const balance = movements.reduce((accum, cur) => accum + cur, 0);
+  labelBalance.textContent = `${balance}€`;
+} 
+calcDisplayBalance(account1.movements);
+
+//creating usernames
+const createUsernames = function(accs) {
+  accs.forEach(function(acc) {
+    acc.username = acc.owner.toLowerCase().split(' ').map(name => name[0]).join('');
+  });
+};
+createUsernames(accounts);
+console.log(accounts);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -196,8 +211,8 @@ const checkDogs = function(data1, data2) {
       console.log(`Dog number ${i +1} is an adult, and is ${age} years old!`);
     }else {
       console.log(`Dog number ${i +1} is still a puppy! 🐶`);
-    }
-  })
+    };
+  });
 };
 checkDogs(juliaData, kateData);
 
@@ -212,7 +227,98 @@ const checkDogs2 = function(dogsJulia, dogsKate) {
       console.log(`Dog number ${i +1} is an adult, and is ${dog} years old!`);
     } else {
       console.log(`Dog number ${i +1} is still a puppy! 🐶`);
-    }
-  })
-}
+    };
+  });
+};
 checkDogs2([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+////////////////////////////////////
+
+const eurToUsd = 1.1;
+//mapping is more modern for functional programming
+// const movementsUSD = movements.map(function(move) {
+//   return move * eurToUsd;
+// });
+//arrow function one liner
+const movementsUSD = movements.map(move => move * eurToUsd);
+console.log(movements);
+console.log(movementsUSD);
+
+
+//doing the above with a for of loop to show different philosophy. 
+const movementsUSDfor = [];
+for(const move of movements2) {
+  movementsUSDfor.push(move * eurToUsd);
+};
+console.log(movementsUSDfor);
+
+const movementsDescriptions = movements2.map((mov, i) => 
+   `Movement ${i+1}. You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(mov)}`
+)
+console.log(movementsDescriptions);
+
+/////////////////////////FILTERS METHOD
+console.log('---------FILTERS METHOD------------');
+
+const deposits = movements2.filter(function(move) {
+  return move > 0;
+});
+console.log(deposits);
+const withdrawals = movements2.filter(function(move) {
+  return move < 0;
+});
+console.log(withdrawals);
+
+//for of loop is not made for functional coding, the filter allows chaining methods and functional modern programming
+const depositsfor = [];
+for (const move of movements2) {
+  if (move > 0) {
+    depositsfor.push(move);
+  };
+};
+console.log(depositsfor);
+
+///////////////////REDUCE
+console.log('-------REDUCE---------');
+console.log(movements2);
+
+//accumulator is like a snowball
+// const balance = movements2.reduce(function(accum, cur, i, arr) {
+//   console.log(`Iteration ${i}: ${accum}`);
+//   return accum + cur;
+// }, 0);
+// console.log(balance);
+const balance = movements2.reduce((accum, cur) => accum + cur, 0);
+console.log(balance);
+
+//for loop can start to become not practice. avoids an extra variable.
+let balance2 = 0;
+for (const move of movements2) {
+  balance2 += move;
+};
+console.log(balance2);
+
+//maximum value of movements array 
+const max = movements2.reduce((accum, move) => {
+  if (accum > move) {
+    return accum;
+  } else {
+    return move;
+  }
+}, movements2[0]);
+console.log(max);
+////////////////coding challenge 2
+
+const calcHumanAverage = function(ages) {
+  const dogToHuman = ages.map(age => age <= 2 ? 2* age : 16 + age * 4);
+  console.log(dogToHuman);
+  const HumanLessThan = dogToHuman.filter(function(age){
+    return age >= 18;
+  });
+  const averageAge = HumanLessThan.reduce(function(accum, age) {
+    return accum + age;
+  }, 0) / HumanLessThan.length;
+  return averageAge;
+};
+const avg1 = calcHumanAverage([5,2,4,1,15,8,3]);
+const avg2 = calcHumanAverage([16,6,10,5,6,1,4]);
+console.log(avg1, avg2);
