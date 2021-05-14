@@ -70,20 +70,32 @@ const displayMovements = function(movements) {
     const html = `
     <div class="movements__row">
     <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-    <div class="movements__value">${move}</div>
+    <div class="movements__value">${move}€</div>
   </div>`;
   containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-displayMovements(account1.movements);
 
 //printing the total balance 
-const calcDisplayBalance = function(movements) {
-  const balance = movements.reduce((accum, cur) => accum + cur, 0);
-  labelBalance.textContent = `${balance}€`;
-} 
-calcDisplayBalance(account1.movements);
+const calcDisplayBalance = function(acc) {
+  acc.balance = acc.movements.reduce((accum, cur) => accum + cur, 0);
+  acc
+  labelBalance.textContent = `${acc.balance}€`;
+};
 
+const calcDisplaySummary = function(acc) {
+  const incomes = acc.movements.filter(move => move > 0).reduce((accum, move) => accum + move, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const out = acc.movements.filter(move => move < 0).reduce((accum, move) => accum + move, 0);
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  const interest = acc.movements.filter(move => move > 0).map(deposit => (deposit * acc.interestRate) /100).filter((int, i, array) => {
+    return int >= 1;
+  })
+  .reduce((accum, move) => accum + move, 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
 //creating usernames
 const createUsernames = function(accs) {
   accs.forEach(function(acc) {
@@ -91,7 +103,54 @@ const createUsernames = function(accs) {
   });
 };
 createUsernames(accounts);
-console.log(accounts);
+
+const updateUI = function(acc) {
+      //display movements
+      displayMovements(acc.movements);
+      //display balance
+      calcDisplayBalance(acc);
+      //display summary
+      calcDisplaySummary(acc);
+}
+
+/////EVENT HANDLERS
+let currentAccount;
+
+btnLogin.addEventListener('click', function(e) {
+  e.preventDefault();
+  //prevent form from submitting
+  currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
+  console.log(currentAccount);
+  if(currentAccount?.pin === Number(inputLoginPin.value)) {
+    //display UI and welcome message
+    labelWelcome.textContent = `Welcome back ${currentAccount.owner.split(' ')[0]}`;
+    containerApp.style.opacity = 100;
+    //clar input fields 
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+    //UPDATE UI
+    updateUI(currentAccount);
+  };
+});
+
+//transferring money from one account to another 
+btnTransfer.addEventListener('click', function(e) {
+e.preventDefault();
+const amount = Number(inputTransferAmount.value)
+const receiverAccount = accounts.find(acc => acc.username === inputTransferTo.value);
+inputTransferAmount.value = inputTransferTo.value = '';
+
+if(amount > 0 && 
+  currentAccount.balance >= amount && 
+  receiverAccount &&
+  receiverAccount?.username !== currentAccount.username) {
+    currentAccount.movements.push(-amount);
+    receiverAccount.movements.push(amount);
+
+    //update ui 
+    updateUI(currentAccount);
+}
+});
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -322,3 +381,35 @@ const calcHumanAverage = function(ages) {
 const avg1 = calcHumanAverage([5,2,4,1,15,8,3]);
 const avg2 = calcHumanAverage([16,6,10,5,6,1,4]);
 console.log(avg1, avg2);
+
+///////////
+//PIPELINE
+const totalDepositsUSD = movements.filter(move => move > 0)
+.map((move, i , array)  =>{
+  //  console.log(array);
+   return move * eurToUsd
+})
+// .map(move  => move * eurToUsd)
+.reduce((accum, move) => accum + move, 0);
+
+console.log(totalDepositsUSD);
+
+////////////////////////////////////////////
+console.log('------CODING CHALLENGE 3-----------');
+
+const humanAverage2 = ages => ages.map(age => (age <= 2 ? 2* age : 16 + age * 4)).filter(age => age >= 18).reduce((accum, age, i, arr) => accum + age / arr.length, 0);
+
+const avg3 = humanAverage2([5,2,4,1,15,8,3]);
+const avg4 = humanAverage2([16,6,10,5,6,1,4]);
+console.log(avg3);
+console.log(avg4);
+
+////////THE FIND METHOD
+console.log('----the find method----');
+
+const firstWithdrawal = movements2.find(move => move < 0);
+console.log(firstWithdrawal); 
+
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(account);
+
