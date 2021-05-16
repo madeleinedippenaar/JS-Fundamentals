@@ -62,9 +62,12 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 //FUNCTIONALITY
-const displayMovements = function(movements) {
+const displayMovements = function(movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach(function(move, i) {
+  //sorting 
+  const moves = sort ? movements.slice().sort((a,b) => a - b) : movements;
+
+  moves.forEach(function(move, i) {
     const type = move > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -116,6 +119,22 @@ const updateUI = function(acc) {
 /////EVENT HANDLERS
 let currentAccount;
 
+//closing an account
+btnClose.addEventListener('click', function(e) {
+  e.preventDefault();
+  //checks to make sure current account matches the account being deleted
+  if(inputCloseUsername.value === currentAccount.username && Number(inputClosePin.value) === currentAccount.pin) {
+    //finds the index of the current account
+    const index = accounts.findIndex(acc => acc.username === currentAccount.username);
+    console.log(index);
+    //delete account
+    accounts.splice(index,1);
+    //hide ui
+    containerApp.style.opacity = 0;
+  };
+  inputCloseUsername.value = inputClosePin.value = '';
+});
+
 btnLogin.addEventListener('click', function(e) {
   e.preventDefault();
   //prevent form from submitting
@@ -132,6 +151,28 @@ btnLogin.addEventListener('click', function(e) {
     updateUI(currentAccount);
   };
 });
+
+// requesting a loan
+btnLoan.addEventListener('click', function(e) {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+  if(amount > 0 && currentAccount.movements.some(move => move >= amount * 0.1)) {
+    //add movement
+    currentAccount.movements.push(amount);
+
+    //update UI 
+    updateUI(currentAccount);
+  };
+  inputLoanAmount.value = ''; 
+});
+let sorted = false;
+btnSort.addEventListener('click', function(e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+})
+
+
 
 //transferring money from one account to another 
 btnTransfer.addEventListener('click', function(e) {
@@ -150,7 +191,9 @@ if(amount > 0 &&
     //update ui 
     updateUI(currentAccount);
 }
-});
+}); 
+
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -413,3 +456,81 @@ console.log(firstWithdrawal);
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 console.log(account);
 
+///////////////SOME AND EVERY METHODS
+console.log('--------some and every------');
+
+//SOME
+//includes checks for equality
+console.log(movements.includes(-130));
+
+//some checks a condition
+console.log(movements.some(move => move === -130));
+const anyDeposits = movements.some(move => move > 0);
+ console.log(anyDeposits);
+
+ //EVERY
+ console.log(account4.movements.every(move => move > 0));
+ // seperate callback
+
+const depo = move => move > 0;
+console.log(movements.some(depo));
+console.log(movements.every(depo));
+console.log(movements.filter(depo));
+
+//FLAT AND FLATMAP
+console.log('---FLAT AND FLATMAP----');
+
+const ar = [1,2,3, [4,5,6], 7,8];
+console.log(ar.flat());
+
+const arrDeep = [1,[2,3], [[4,5],6], 7,8];
+console.log(arrDeep.flat(2));
+
+
+//calculating OVERALL BALANCE FOR ALL ACCOUNTS USING FLAT
+const accountMovements = accounts.map(acc => acc.movements);
+console.log(accountMovements);
+const allMovements = accountMovements.flat();
+console.log(allMovements);
+
+const overallBalance = allMovements.reduce((accum, move) => accum + move, 0);
+console.log(overallBalance);
+
+//CHAINING which looks better and follows better coding practice
+const overall2 = accounts.map(acc => acc.movements).flat().reduce((accum, move) => accum + move, 0);
+console.log(overall2);
+
+//FLATMAP
+const overallFlapMap = accounts.flatMap(acc => acc.movements).reduce((accum, move) => accum + move, 0);
+console.log(overallFlapMap);
+
+
+/////sorting arrays
+console.log('---SORTING ARRAYS---');
+ const owners = ['Madeleine', 'Jonas', 'Zach', 'Adam'];
+ console.log(owners.sort());
+ //sorts it alphabetically and mutates original array
+
+ //with numbers
+ console.log(movements);
+ 
+ //return < 0, a before b (keep order)
+ //return > 0, b before a (switch order)
+
+ ///ASCENDING
+//  movements.sort((a, b) => {
+//     if(a > b) return 1;
+//     if(b > a) return -1;
+//  });
+//  console.log(movements);
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+ //DESCENDING
+//  movements.sort((a, b) => {
+//   if(a > b) return -1;
+//   if(b > a) return 1;
+// });
+// console.log(movements);
+movements.sort((a, b) => b - a);
+console.log(movements);
