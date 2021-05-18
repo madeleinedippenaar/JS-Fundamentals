@@ -342,10 +342,6 @@ btnClose.addEventListener('click', function (e) {
   }
 
   inputCloseUsername.value = inputClosePin.value = '';
-
-      //reset timer
-      clearInterval(timer);
-      timer = startLogOutTimer();
 });
 
 let sorted = false;
