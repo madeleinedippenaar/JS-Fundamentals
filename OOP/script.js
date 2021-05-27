@@ -236,4 +236,148 @@ ford.brake();
 ford.speedUS = 50;
 console.log(ford);
 
+//////////////////////////
+/////INHERETANCE BETWEEN CLASSES
 
+const PersonIn = function(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+};
+
+PersonIn.prototype.calcAge = function() {
+    console.log(2037 - this.birthYear);
+};
+
+const Student = function(firstName, birthYear, course) {
+    PersonIn.call(this, firstName, birthYear);
+    this.course = course;
+};
+
+Student.prototype = Object.create(PersonIn.prototype)
+
+Student.prototype.introduce = function() {
+    console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const mike = new Student('Mike', 2020, 'Computer Science');
+console.log(mike);
+mike.introduce();
+mike.calcAge();
+
+console.log(mike.__proto__);
+console.log(mike.__proto__.__proto__);
+
+Student.prototype.constructor = Student;
+console.dir(Student.prototype.constructor);
+////child classes can share behavior from their parent classes
+
+
+///////////CODING CHALLENGE 3
+const EV = function(make, speed, charge) {
+    Car.call(this, make, speed);
+    this.charge = charge;
+};
+EV.prototype = Object.create(Car.prototype);
+
+EV.prototype.chargeBattery = function(chargeTo) {
+    this.charge = chargeTo;
+};
+
+EV.prototype.accelerate = function() {
+    this.speed += 20;
+    this.charge--;
+    console.log(`Tesla going ${this.speed}km/h, with a charge of ${this.charge}%`);
+    
+};
+const tesla = new EV('Tesla', 120, 23);
+console.log(tesla);
+tesla.accelerate();
+tesla.brake();
+tesla.accelerate();
+
+//////////INHERATENCE BETWEEN CLASSES ES6 CLASSES
+
+class StudentCl extends PersonCl {
+     constructor(fullName, birthYear, couse) {
+         super(fullName, birthYear);
+         this.course = couse;
+     };
+     introduce() {
+        console.log(`My name is ${this.fullName} and I study ${this.course}`);
+    };
+    calcAge(){
+        console.log(`I'm ${2037 - this.birthYear} years old, but as a student I feel more like ${2037 - this.birthYear + 10}`);
+    }
+    
+};
+
+const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
+martha.introduce();
+martha.calcAge();
+
+///////////INHERITANCE WITH OBJECT.CREATE
+
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function(firstName, birthYear, course) {
+    PersonProto.init.call(this, firstName, birthYear);
+    this.course = course;
+};
+
+StudentProto.introduce = function() {
+    console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const james = Object.create(StudentProto);
+james.init('James', 2010, 'Computer Science');
+console.log(james);
+james.introduce();
+james.calcAge();
+
+//////ANOTHER CLASS EXAMPLE
+
+class Account {
+    constructor(owner, currency, pin) {
+        this.owner = owner;
+        this.currency = currency;
+        this.pin = pin;
+        this.movements = [];
+        this.locale = navigator.language;
+
+        console.log(`Thanks for opening an account ${owner}`);
+    };
+    //public interface
+    deposit(value) {
+        this.movements.push(value);
+    };
+
+    withdraw(value) {
+        this.deposit(-value);
+    };
+
+    approveLoan(vaue) {
+        return true;
+    };
+
+    requestLoan(value) {
+        if(this.approveLoan(value)) {
+            this.deposit(value);
+            console.log(`Loan Approved`);
+        };
+    };
+};
+
+const acc1 = new Account('Madeleine', "Dollars", 1111);
+console.log(acc1);
+
+
+///dont do this
+// acc1.movements.push(250);
+// acc1.movements.push(-140);
+// console.log(acc1);
+
+//do this
+acc1.deposit(250);
+acc1.withdraw(140);
+acc1.requestLoan(1000);
+
+console.log(acc1);
