@@ -219,6 +219,7 @@ class CarCl {
     brake() {
         this.speed -= 5;
         console.log(`${this.make} is going ${this.speed} km/h`);
+        return this;
     };
     get speedUS() {
         return this.speed / 1.6
@@ -335,35 +336,60 @@ james.calcAge();
 
 //////ANOTHER CLASS EXAMPLE
 
+//public fields
+//private fields
+//public methods
+//private methods
+
 class Account {
+    //public fields (instances)
+    locale = navigator.language;
+
+    //private fields
+    #movements = [];
+    #pin;
+
     constructor(owner, currency, pin) {
         this.owner = owner;
         this.currency = currency;
-        this.pin = pin;
-        this.movements = [];
-        this.locale = navigator.language;
+        this.#pin = pin;
+
+        //protected property
+        // this._movements = [];
+        // this.locale = navigator.language;
 
         console.log(`Thanks for opening an account ${owner}`);
     };
+    //public methods
     //public interface
+    getMovements() {
+        return this.#movements;
+    };
     deposit(value) {
-        this.movements.push(value);
+        this.#movements.push(value);
+        return this;
     };
 
     withdraw(value) {
         this.deposit(-value);
+        return this;
     };
-
-    approveLoan(vaue) {
+    _approveLoan(value) {
         return true;
     };
 
     requestLoan(value) {
-        if(this.approveLoan(value)) {
+        if(this._approveLoan(value)) {
             this.deposit(value);
             console.log(`Loan Approved`);
+            return this;
         };
     };
+
+    //private methods
+    // #approveLoan(value) {
+    //     return true;
+    // };
 };
 
 const acc1 = new Account('Madeleine', "Dollars", 1111);
@@ -371,13 +397,60 @@ console.log(acc1);
 
 
 ///dont do this
-// acc1.movements.push(250);
-// acc1.movements.push(-140);
+// acc1._movements.push(250);
+// acc1._movements.push(-140);
 // console.log(acc1);
 
 //do this
 acc1.deposit(250);
 acc1.withdraw(140);
 acc1.requestLoan(1000);
+console.log(acc1.getMovements());
 
 console.log(acc1);
+// console.log(acc1.#movements);
+// console.log(acc1.#pin);
+// console.log(acc1.#approveloan(1000));
+
+/////CHAINING METHODS   
+acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).withdraw(4000);
+console.log(acc1);
+
+
+///CODING CHALLENGE 4
+class EVCl extends CarCl {
+    #charge;
+    constructor(make, speed, charge) {
+        super(make, speed);
+        this.#charge = charge;
+    };
+    chargeBattery(chargeTo) {
+        this.#charge = chargeTo;
+        return this;
+    };
+    accelerate() {
+        this.speed += 20;
+        this.#charge--;
+        console.log(`Tesla going ${this.speed}km/h, with a charge of ${this.#charge}%`);
+        return this;
+    };
+};
+// const tesla = new EV('Tesla', 120, 23);
+// console.log(tesla);
+// tesla.accelerate();
+// tesla.brake();
+// tesla.accelerate();
+
+const rivian = new EVCl('Rivian', 120, 23);
+console.log(rivian);
+// console.log(rivian.#charge);
+rivian
+  .accelerate()
+  .accelerate()
+  .accelerate()
+  .brake()
+  .chargeBattery(50)
+  .accelerate();
+
+// console.log(rivian.speedUS);
+
